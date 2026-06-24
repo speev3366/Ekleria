@@ -240,22 +240,32 @@ let heroClipIndex = 0;
 
 function setHeroClip(index) {
   const clip = heroClips[index % heroClips.length];
-  const source = `${clip.src}#t=${clip.start}`;
+  const source = clip.start ? `${clip.src}#t=${clip.start}` : clip.src;
 
   Object.values(heroVideos).forEach((video) => {
     if (!video) return;
+    const playHeroVideo = () => {
+      video.muted = true;
+      video.loop = true;
+      video.autoplay = true;
+      video.play().catch(() => {});
+    };
+
     video.src = source;
+    video.addEventListener("canplay", playHeroVideo, { once: true });
+    video.addEventListener("loadedmetadata", playHeroVideo, { once: true });
     video.load();
-    video.play().catch(() => {});
+    playHeroVideo();
   });
 }
 
 if (heroVideos.bg && heroVideos.main) {
   setHeroClip(heroClipIndex);
-  setInterval(() => {
-    heroClipIndex = (heroClipIndex + 1) % heroClips.length;
-    setHeroClip(heroClipIndex);
-  }, heroClips[heroClipIndex].duration);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      Object.values(heroVideos).forEach((video) => video?.play().catch(() => {}));
+    }
+  });
 }
 
 const productStage = document.querySelector("[data-product-stage]");

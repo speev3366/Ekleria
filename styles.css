@@ -359,7 +359,9 @@ body.menu-open .site-header {
   background: #120a07;
   opacity: .96;
   filter: saturate(1.1) contrast(1.05) brightness(.98);
-  transform: scale(1);
+  /* nudge the sharp focal video right so it clears the headline on the left
+     (scale over-covers so the left edge never exposes the dark background) */
+  transform: translateX(7.5%) scale(1.15);
   transform-origin: center center;
 }
 
@@ -482,10 +484,19 @@ p {
   max-width: 520px;
 }
 
+.story .section-copy h2 {
+  line-height: 1.1;
+}
+
 .portrait {
   margin: 0;
   overflow: hidden;
   background: var(--smoke);
+}
+
+.story .portrait {
+  width: min(100%, 620px);
+  justify-self: center;
 }
 
 .portrait img {
@@ -987,6 +998,14 @@ p {
     contrast(1.05)
     brightness(1.04);
   animation: eclairLevitate 6.5s ease-in-out infinite;
+}
+
+.eclair-pedestal.boutique-render.charcoal-render {
+  width: min(38.4vw, 656px);
+}
+
+.eclair-pedestal.boutique-render.charcoal-render img {
+  translate: -12% 0;
 }
 
 .eclair-placeholder {
