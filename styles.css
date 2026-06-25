@@ -328,6 +328,7 @@ body.menu-open .site-header {
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh; /* accounts for iOS Safari's dynamic URL bar */
   display: grid;
   align-items: end;
   padding: 132px clamp(18px, 5vw, 72px) 84px;
@@ -359,9 +360,7 @@ body.menu-open .site-header {
   background: #120a07;
   opacity: .96;
   filter: saturate(1.1) contrast(1.05) brightness(.98);
-  /* nudge the sharp focal video right so it clears the headline on the left
-     (scale over-covers so the left edge never exposes the dark background) */
-  transform: translateX(7.5%) scale(1.15);
+  transform: scale(1);
   transform-origin: center center;
 }
 
@@ -371,18 +370,18 @@ body.menu-open .site-header {
   height: 100%;
   background:
     /* top scrim so the header stays legible */
-    linear-gradient(180deg, rgba(18, 10, 7, .48), rgba(18, 10, 7, .06) 24%, transparent 40%),
-    /* soft left scrim behind the headline */
-    linear-gradient(90deg, rgba(18, 10, 7, .60), rgba(18, 10, 7, .14) 44%, transparent 68%),
+    linear-gradient(180deg, rgba(18, 10, 7, .5), rgba(18, 10, 7, .1) 18%, transparent 32%),
+    /* left scrim behind the headline (fades out so the video stays visible) */
+    linear-gradient(90deg, rgba(18, 10, 7, .82), rgba(18, 10, 7, .42) 38%, rgba(18, 10, 7, .12) 60%, transparent 78%),
     /* bottom scrim behind the copy + CTAs */
-    linear-gradient(0deg, rgba(18, 10, 7, .74), rgba(18, 10, 7, .22) 32%, transparent 58%),
+    linear-gradient(0deg, rgba(18, 10, 7, .8), rgba(18, 10, 7, .24) 30%, transparent 56%),
     /* cinematic film-frame vignette */
-    radial-gradient(128% 128% at 50% 42%, transparent 50%, rgba(10, 5, 3, .34) 80%, rgba(7, 4, 3, .66) 100%);
+    radial-gradient(132% 122% at 50% 44%, transparent 54%, rgba(8, 4, 3, .34) 100%);
 }
 
 .hero-content {
   position: relative;
-  max-width: 980px;
+  max-width: 560px;
   color: var(--paper);
 }
 
@@ -417,9 +416,9 @@ p {
 }
 
 .hero-copy {
-  max-width: 720px;
+  max-width: 460px;
   color: rgba(255,250,241,.86);
-  font-size: clamp(17px, 2vw, 21px);
+  font-size: clamp(16px, 1.5vw, 19px);
 }
 
 .hero-actions {
@@ -668,7 +667,7 @@ p {
 
 .product-stage {
   position: relative;
-  height: calc(520vh - 160px);
+  height: calc(624vh - 160px);
   margin: 18px calc(clamp(18px, 5vw, 72px) * -1) 0;
 }
 
@@ -706,6 +705,28 @@ p {
    (Individual `rotate` composes with the levitation `transform` animation.) */
 .eclair-pedestal.boutique-render img[src*="dark-chocolate"] {
   rotate: 15deg;
+  translate: 0 20px;
+}
+
+/* The charcoal photo is framed tighter than the others, so it renders larger;
+   shrink it ~30% to match. (Individual `scale` composes with the levitation.) */
+.eclair-pedestal.boutique-render img[src*="charcoal"] {
+  scale: 0.63;
+}
+
+/* the roll is a chunkier, made-to-order piece - give it a little more presence */
+.eclair-pedestal.boutique-render img[src*="product-alpha-roll"] {
+  scale: 0.92;
+  translate: 0 10px;
+}
+
+/* first three eclairs (caramel, pistachio, white chocolate): ~10% smaller and
+   nudged a touch lower toward the podium */
+.eclair-pedestal.boutique-render img[src*="product-alpha-caramel"],
+.eclair-pedestal.boutique-render img[src*="product-alpha-pistachio"],
+.eclair-pedestal.boutique-render img[src*="product-alpha-white-chocolate"] {
+  scale: 0.72;
+  translate: 0 26px;
 }
 
 @keyframes haloPulse {
@@ -867,13 +888,36 @@ p {
   transform: rotate(45deg);
 }
 
+/* The roll slide lists 5 glaze options, so compact the list and trim the
+   heading/offset to keep everything inside the slide frame. */
+.glaze-list { margin-top: 20px; }
+
+.glaze-list li {
+  min-height: 46px;
+  padding: 8px 0 8px 64px;
+  font-size: 15px;
+}
+
+.glaze-list li::before { width: 36px; height: 36px; }
+
+.glaze-list li::after { left: 13px; width: 9px; height: 9px; }
+
+.product-slide:has(.glaze-list) .product-slide-copy {
+  transform: translateY(-22px);
+}
+
+.product-slide:has(.glaze-list) .product-slide-copy h3 {
+  font-size: clamp(58px, 5.6vw, 100px);
+  margin-bottom: 24px;
+}
+
 .product-spotlight {
   position: relative;
   z-index: 2;
   min-height: calc(100vh - 150px);
   display: grid;
   place-items: end center;
-  padding: 0 clamp(18px, 3vw, 48px) 34px;
+  padding: 0 clamp(18px, 3vw, 48px) 62px;
 }
 
 .product-spotlight::before {
@@ -881,13 +925,17 @@ p {
   position: absolute;
   inset: -82px -12% 0;
   background:
-    radial-gradient(circle at 24% -2%, rgba(255,245,218,.82) 0 2.8%, rgba(231,176,105,.38) 5.5%, transparent 8.5%),
-    radial-gradient(circle at 54% -2%, rgba(255,245,218,.86) 0 2.8%, rgba(231,176,105,.40) 5.8%, transparent 9%),
-    radial-gradient(circle at 84% -2%, rgba(255,245,218,.78) 0 2.7%, rgba(231,176,105,.34) 5.5%, transparent 8.5%),
-    conic-gradient(at 24% -5%, transparent 0 150deg, rgba(255,232,183,.34) 160deg, rgba(218,147,76,.13) 186deg, transparent 202deg 360deg),
-    conic-gradient(at 54% -5%, transparent 0 166deg, rgba(255,232,183,.38) 174deg, rgba(218,147,76,.15) 186deg, transparent 194deg 360deg),
-    conic-gradient(at 84% -5%, transparent 0 196deg, rgba(255,232,183,.32) 208deg, rgba(218,147,76,.12) 232deg, transparent 244deg 360deg),
-    radial-gradient(ellipse at 58% 58%, rgba(200,116,43,.30), transparent 38%);
+    /* three symmetric light sources at the top (28% / 50% / 72%) */
+    radial-gradient(circle at 28% -2%, rgba(255,245,218,.82) 0 2.7%, rgba(231,176,105,.38) 5.4%, transparent 8.6%),
+    radial-gradient(circle at 50% -2%, rgba(255,245,218,.88) 0 2.8%, rgba(231,176,105,.42) 5.6%, transparent 9%),
+    radial-gradient(circle at 72% -2%, rgba(255,245,218,.82) 0 2.7%, rgba(231,176,105,.38) 5.4%, transparent 8.6%),
+    /* left beam angles in toward the centre (~161deg) */
+    conic-gradient(at 28% -6%, transparent 0 150deg, rgba(255,232,183,.34) 161deg, rgba(218,147,76,.12) 168deg, transparent 174deg 360deg),
+    /* middle beam straight down (180deg) */
+    conic-gradient(at 50% -6%, transparent 0 169deg, rgba(255,236,196,.40) 180deg, rgba(218,147,76,.13) 187deg, transparent 191deg 360deg),
+    /* right beam mirrors the left (~199deg) */
+    conic-gradient(at 72% -6%, transparent 0 186deg, rgba(218,147,76,.12) 192deg, rgba(255,232,183,.34) 199deg, transparent 210deg 360deg),
+    radial-gradient(ellipse at 50% 58%, rgba(200,116,43,.30), transparent 38%);
   filter: blur(.35px);
   opacity: .92;
   pointer-events: none;
@@ -899,7 +947,7 @@ p {
   position: absolute;
   z-index: 1;
   left: 50%;
-  bottom: 22px;
+  bottom: 50px;
   width: min(50vw, 860px);
   height: min(24vh, 258px);
   transform: translateX(-50%);
@@ -991,6 +1039,8 @@ p {
   aspect-ratio: auto;
   object-fit: contain;
   transform: translateY(6px);
+  /* keep the eclairs smaller and elegant, sitting back on the stage */
+  scale: 0.8;
   filter:
     drop-shadow(0 42px 40px rgba(0,0,0,.55))
     drop-shadow(0 0 50px rgba(255,182,92,.34))
@@ -1005,7 +1055,7 @@ p {
 }
 
 .eclair-pedestal.boutique-render.charcoal-render img {
-  translate: -12% 0;
+  translate: 0 44px;
 }
 
 .eclair-placeholder {
@@ -1189,7 +1239,8 @@ p {
   height: min(54vh, 520px);
   min-height: 420px;
   object-fit: cover;
-  background: #111;
+  /* warm brand fallback instead of stark black if a frame isn't decoded yet */
+  background: linear-gradient(160deg, #2d170c, #130806);
 }
 
 .gallery {
@@ -1634,6 +1685,7 @@ p {
 
   .hero {
     min-height: 92vh;
+    min-height: 92dvh;
     padding: 112px 18px 34px;
   }
 
@@ -1642,13 +1694,22 @@ p {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 52%;
+    object-position: center 50%;
     opacity: 1;
     transform: scale(1.03);
   }
 
   .hero-video-bg {
     filter: blur(14px) saturate(1.08) contrast(1.03) brightness(.58);
+  }
+
+  /* On phones the text stacks at the bottom, so darken bottom-up and let the
+     video fill the whole screen (instead of the desktop left-half panel). */
+  .hero-shade {
+    background:
+      linear-gradient(180deg, rgba(18, 10, 7, .52), rgba(18, 10, 7, .08) 18%, transparent 30%),
+      linear-gradient(0deg, rgba(18, 10, 7, .94) 0%, rgba(18, 10, 7, .86) 26%, rgba(18, 10, 7, .5) 48%, rgba(18, 10, 7, .16) 66%, transparent 82%),
+      radial-gradient(130% 78% at 50% 32%, transparent 52%, rgba(8, 4, 3, .42) 100%);
   }
 
   h1 {

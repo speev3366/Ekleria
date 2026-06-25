@@ -95,6 +95,12 @@
                 <a href="#eclairs" data-product-target="4" data-i18n="flavor.charcoal.title">Активен въглен</a>
               </div>
             </div>
+            <div class="nav-subitem">
+              <a href="#eclairs" data-product-target="5" data-i18n="productCats.order">Поръчкови</a>
+              <div class="nav-submenu" aria-label="Поръчкови продукти">
+                <a href="#eclairs" data-product-target="5" data-i18n="roll.title">Еклерово руло</a>
+              </div>
+            </div>
             <a href="#other-products" data-i18n="productCats.other">Друго</a>
           </div>
         </div>
@@ -161,9 +167,9 @@
           <p data-i18n="atelier.copy">Три кратки кадъра от ателието: кремът, глазурата и финалният детайл. Всичко се приготвя на място - внимателно, чисто и с характер.</p>
         </div>
         <div class="video-stack">
-          <video src="assets/videos/atelier-1.mp4" autoplay muted loop playsinline></video>
-          <video src="assets/videos/atelier-2.mp4" autoplay muted loop playsinline></video>
-          <video src="assets/videos/atelier-3.mp4" autoplay muted loop playsinline></video>
+          <video src="assets/videos/atelier-1.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="assets/videos/atelier-2.mp4" autoplay muted loop playsinline preload="metadata"></video>
+          <video src="assets/videos/atelier-3.mp4" autoplay muted loop playsinline preload="metadata"></video>
         </div>
       </section>
 
@@ -195,11 +201,11 @@
         </div>
         <div class="product-grid">
           <article class="product feature">
-            <img loading="lazy" decoding="async" src="assets/images/signature-eclair.png" alt="Специален еклер на Еклерия">
+            <img loading="lazy" decoding="async" src="assets/images/signature-eclair.png" alt="Еклерово Руло на Еклерия">
             <div>
-              <span data-i18n="products.signature.kicker">Специалитет</span>
-              <h3 data-i18n="products.signature.title">Еклер по оригинална рецепта</h3>
-              <p data-i18n="products.signature.copy">Нежен крем, фина глазура и балансирана сладост - продуктът, около който е създадена Еклерия.</p>
+              <span data-i18n="products.signature.kicker">Само по поръчка</span>
+              <h3 data-i18n="products.signature.title">Еклерово Руло</h3>
+              <p data-i18n="products.signature.copy">Специално произведение, което приготвяме само по поръчка - нежен крем, фина глазура и характерният почерк на Еклерия.</p>
             </div>
           </article>
           <article class="product">
@@ -230,7 +236,8 @@
           <p data-i18n="productsSection.copy">В началото на Варна, на ул. "Под Игото" 58, Еклерия превръща десерта в малък ритуал: истински съставки, неустоим крем, фина глазура и свежест, която се усеща още от първата хапка.</p>
         </div>
         <div class="product-categories" aria-label="Категории продукти">
-          <a href="#eclairs" data-i18n="productCats.eclairs">Еклери</a>
+          <a href="#eclairs" data-product-target="0" data-i18n="productCats.eclairs">Еклери</a>
+          <a href="#eclairs" data-product-target="5" data-i18n="productCats.order">Поръчкови</a>
           <a href="#other-products" data-i18n="productCats.other">Друго</a>
         </div>
         <div class="product-stage" id="eclairs" data-product-stage>
@@ -307,6 +314,26 @@
                   <div class="spotlight-beam"></div>
                   <figure class="eclair-pedestal boutique-render charcoal-render">
                     <img loading="lazy" decoding="async" src="assets/images/product-alpha-charcoal.png" alt="Еклер с активен въглен">
+                  </figure>
+                </div>
+              </article>
+              <article class="product-slide">
+                <div class="product-slide-copy">
+                  <span data-i18n="product.roll.number">Продукт 06</span>
+                  <h3 data-i18n="roll.title">Еклерово руло</h3>
+                  <p data-i18n="roll.copy">Руло с пухкаво тесто и нежен крем, завършено със заливка по ваш избор, което се предлага по предварително направена поръчка.</p>
+                  <ul class="glaze-list">
+                    <li data-i18n="roll.glaze1">Карамел</li>
+                    <li data-i18n="roll.glaze2">Черен ганаш</li>
+                    <li data-i18n="roll.glaze3">Бял ганаш</li>
+                    <li data-i18n="roll.glaze4">Пистачио</li>
+                    <li data-i18n="roll.glaze5">Млечен шоколад</li>
+                  </ul>
+                </div>
+                <div class="product-spotlight">
+                  <div class="spotlight-beam"></div>
+                  <figure class="eclair-pedestal boutique-render roll-render">
+                    <img loading="lazy" decoding="async" src="assets/images/product-alpha-roll.png" alt="Еклерово руло">
                   </figure>
                 </div>
               </article>

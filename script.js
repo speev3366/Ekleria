@@ -24,9 +24,9 @@ const translations = {
     "story.copy2": "Тук всяко печиво носи лично отношение: от крема и глазурата до последния детайл в кутията, която стига до вас.",
     "selection.eyebrow": "Селекция",
     "selection.title": "Витрина с ритъм, блясък и аромат.",
-    "products.signature.kicker": "Специалитет",
-    "products.signature.title": "Еклер по оригинална рецепта",
-    "products.signature.copy": "Нежен крем, фина глазура и балансирана сладост - продуктът, около който е създадена Еклерия.",
+    "products.signature.kicker": "Само по поръчка",
+    "products.signature.title": "Еклерово Руло",
+    "products.signature.copy": "Специално произведение, което приготвяме само по поръчка - нежен крем, фина глазура и характерният почерк на Еклерия.",
     "products.case.kicker": "Всеки ден",
     "products.case.title": "Нашите еклерови произведения",
     "products.case.copy": "Карамел, шам фъстък, бял шоколад и тъмен шоколад - вкусове с ясна рецепта и ежедневна свежест.",
@@ -47,7 +47,16 @@ const translations = {
     "caramel.note2": "Истински съставки",
     "caramel.note3": "Фин карамелен завършек",
     "productCats.eclairs": "Еклери",
+    "productCats.order": "Поръчкови",
     "productCats.other": "Друго",
+    "product.roll.number": "Продукт 06",
+    "roll.title": "Еклерово руло",
+    "roll.copy": "Руло с пухкаво тесто и нежен крем, завършено със заливка по ваш избор, което се предлага по предварително направена поръчка.",
+    "roll.glaze1": "Карамел",
+    "roll.glaze2": "Черен ганаш",
+    "roll.glaze3": "Бял ганаш",
+    "roll.glaze4": "Пистачио",
+    "roll.glaze5": "Млечен шоколад",
     "flavor.pistachio.title": "Шам фъстък",
     "flavor.pistachio.copy": "Еклер с изразителна глазура от шам фъстък, фин ядков характер и свеж крем, който балансира сладостта с елегантна плътност.",
     "flavor.white.title": "Бял шоколад",
@@ -109,9 +118,9 @@ const translations = {
     "story.copy2": "Every pastry carries a personal touch: from the cream and glaze to the final detail in the box that reaches you.",
     "selection.eyebrow": "Selection",
     "selection.title": "A display with rhythm, gloss and aroma.",
-    "products.signature.kicker": "Signature",
-    "products.signature.title": "Original-recipe eclair",
-    "products.signature.copy": "Delicate cream, fine glaze and balanced sweetness - the product around which Ekleria was created.",
+    "products.signature.kicker": "By order only",
+    "products.signature.title": "Eclair Roll",
+    "products.signature.copy": "A special creation we make strictly to order - delicate cream, fine glaze and Ekleria's signature touch.",
     "products.case.kicker": "Daily",
     "products.case.title": "Our eclair creations",
     "products.case.copy": "Caramel, pistachio, white chocolate and dark chocolate - flavors with a clear recipe and daily freshness.",
@@ -132,7 +141,16 @@ const translations = {
     "caramel.note2": "Real ingredients",
     "caramel.note3": "Fine caramel finish",
     "productCats.eclairs": "Eclairs",
+    "productCats.order": "Made to order",
     "productCats.other": "Other",
+    "product.roll.number": "Product 06",
+    "roll.title": "Eclair Roll",
+    "roll.copy": "A roll with airy pastry and delicate cream, finished with a glaze of your choice, available by advance order.",
+    "roll.glaze1": "Caramel",
+    "roll.glaze2": "Dark ganache",
+    "roll.glaze3": "White ganache",
+    "roll.glaze4": "Pistachio",
+    "roll.glaze5": "Milk chocolate",
     "flavor.pistachio.title": "Pistachio",
     "flavor.pistachio.copy": "An eclair with expressive pistachio glaze, a fine nutty character and fresh cream that balances sweetness with elegant depth.",
     "flavor.white.title": "White chocolate",
@@ -266,6 +284,26 @@ if (heroVideos.bg && heroVideos.main) {
       Object.values(heroVideos).forEach((video) => video?.play().catch(() => {}));
     }
   });
+}
+
+// Play each video only while it is on screen. This keeps the number of
+// simultaneously decoding videos low, which is what iOS Safari needs - otherwise
+// a heavier clip (e.g. the full-HD atelier video) can stay on a black frame.
+if ("IntersectionObserver" in window) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        video.muted = true;
+        const playback = video.play();
+        if (playback && playback.catch) playback.catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll("video").forEach((video) => videoObserver.observe(video));
 }
 
 const productStage = document.querySelector("[data-product-stage]");
