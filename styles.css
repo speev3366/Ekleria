@@ -1626,18 +1626,19 @@ p {
   }
 
   .product-spotlight {
-    min-height: 420px;
-    padding: 20px 0 78px;
+    min-height: 0;
+    padding: 6px 0 18px;
   }
 
+  /* keep the light beams inside the stage so they don't wash over the copy */
   .product-spotlight::before {
-    inset: -80px -20% 0;
+    inset: -6px -16% 0;
   }
 
   .product-spotlight::after {
-    width: min(66vw, 420px);
-    height: 118px;
-    bottom: 26px;
+    width: min(56vw, 360px);
+    height: 98px;
+    bottom: 10px;
   }
 
   .eclair-pedestal,
@@ -1646,24 +1647,24 @@ p {
   }
 
   .eclair-pedestal.boutique-render {
-    width: min(58vw, 400px);
-    padding-bottom: 74px;
+    width: min(50vw, 350px);
+    padding-bottom: 92px;
   }
 
   .eclair-pedestal.boutique-render::before {
-    bottom: 60px;
-    height: 70px;
+    bottom: 84px;
+    height: 46px;
   }
 
   .eclair-pedestal.boutique-render img {
-    max-height: 240px;
+    max-height: 195px;
     transform: translateY(10px);
   }
 
-  /* seat the eclairs just above the (smaller) mobile podium instead of floating */
+  /* uniform seating for every eclair just above the mobile podium */
   .eclair-pedestal.boutique-render img[src],
   .eclair-pedestal.boutique-render.charcoal-render img {
-    translate: 0 18px;
+    translate: 0 0;
   }
 
   .product-spotlight .eclair-pedestal::after {
