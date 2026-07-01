@@ -173,10 +173,19 @@
           <h2 data-i18n="atelier.title">Кадрите са част от вкуса.</h2>
           <p data-i18n="atelier.copy">Три кратки кадъра от ателието: кремът, глазурата и финалният детайл. Всичко се приготвя на място - внимателно, чисто и с характер.</p>
         </div>
-        <div class="video-stack">
-          <video src="assets/videos/atelier-1.mp4" autoplay muted loop playsinline preload="metadata"></video>
-          <video src="assets/videos/atelier-2.mp4" autoplay muted loop playsinline preload="metadata"></video>
-          <video src="assets/videos/atelier-3.mp4" autoplay muted loop playsinline preload="metadata"></video>
+        <div class="video-player">
+          <video class="atelier-player" data-atelier-player src="assets/videos/aterlier-0.mp4" autoplay muted playsinline preload="metadata"></video>
+          <span class="atelier-count" data-atelier-count>1 / 4</span>
+          <button class="atelier-nav atelier-prev" type="button" data-atelier-prev aria-label="Предишно видео">
+            <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="atelier-nav atelier-next" type="button" data-atelier-next aria-label="Следващо видео">
+            <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <button class="atelier-pp" type="button" data-atelier-playpause aria-label="Пауза / старт">
+            <svg class="ic-pause" viewBox="0 0 24 24"><path d="M7 4h4v16H7zM13 4h4v16h-4z"/></svg>
+            <svg class="ic-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg>
+          </button>
         </div>
       </section>
 
@@ -320,7 +329,7 @@
                 <div class="product-spotlight">
                   <div class="spotlight-beam"></div>
                   <figure class="eclair-pedestal boutique-render charcoal-render">
-                    <img loading="lazy" decoding="async" src="assets/images/product-alpha-charcoal.png" alt="Еклер с активен въглен">
+                    <img loading="lazy" decoding="async" src="assets/images/product-alpha-charcoal1.png" alt="Еклер с активен въглен">
                   </figure>
                 </div>
               </article>

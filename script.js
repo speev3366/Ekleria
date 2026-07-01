@@ -424,3 +424,42 @@ document.querySelectorAll("[data-contact-cta]").forEach((btn) => {
     }, 700);
   });
 });
+
+// Atelier: single player that plays the clips one after another (0 → 1 → 2 → 3 → loop).
+const atelierPlayer = document.querySelector("[data-atelier-player]");
+const atelierPlaylist = [
+  "assets/videos/aterlier-0.mp4",
+  "assets/videos/atelier-1.mp4",
+  "assets/videos/atelier-2.mp4",
+  "assets/videos/atelier-3.mp4"
+];
+let atelierIndex = 0;
+
+if (atelierPlayer) {
+  const atCount = document.querySelector("[data-atelier-count]");
+  const atPP = document.querySelector("[data-atelier-playpause]");
+
+  function atLoad(index) {
+    atelierIndex = (index + atelierPlaylist.length) % atelierPlaylist.length;
+    atelierPlayer.src = atelierPlaylist[atelierIndex];
+    atelierPlayer.load();
+    atelierPlayer.play().catch(() => {});
+    if (atCount) atCount.textContent = `${atelierIndex + 1} / ${atelierPlaylist.length}`;
+  }
+
+  atelierPlayer.addEventListener("ended", () => atLoad(atelierIndex + 1));
+  const atNext = document.querySelector("[data-atelier-next]");
+  const atPrev = document.querySelector("[data-atelier-prev]");
+  if (atNext) atNext.addEventListener("click", () => atLoad(atelierIndex + 1));
+  if (atPrev) atPrev.addEventListener("click", () => atLoad(atelierIndex - 1));
+  if (atPP) {
+    atPP.addEventListener("click", () => {
+      if (atelierPlayer.paused) atelierPlayer.play().catch(() => {});
+      else atelierPlayer.pause();
+    });
+  }
+  atelierPlayer.addEventListener("play", () => atPP && atPP.classList.remove("paused"));
+  atelierPlayer.addEventListener("pause", () => atPP && atPP.classList.add("paused"));
+
+  if (atCount) atCount.textContent = `1 / ${atelierPlaylist.length}`;
+}

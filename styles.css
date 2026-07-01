@@ -795,7 +795,8 @@ p {
 /* The charcoal photo is framed tighter than the others, so it renders larger;
    shrink it ~30% to match. (Individual `scale` composes with the levitation.) */
 .eclair-pedestal.boutique-render img[src*="charcoal"] {
-  scale: 0.63;
+  scale: 0.69;
+  rotate: 15deg;
 }
 
 /* on phones the eclairs render smaller already, so don't shrink charcoal as hard */
@@ -1319,19 +1320,100 @@ p {
   scroll-margin-top: 132px;
 }
 
-.video-stack {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+.video-player {
+  position: relative;
+  width: min(100%, 440px);
+  margin: 0 auto;
+  border: 1px solid rgba(200, 155, 72, .28);
+  box-shadow: 0 34px 74px rgba(0, 0, 0, .45);
+  overflow: hidden;
 }
 
-.video-stack video {
+.video-player video {
+  display: block;
   width: 100%;
-  height: min(54vh, 520px);
-  min-height: 420px;
+  aspect-ratio: 9 / 16;
+  max-height: min(78vh, 680px);
   object-fit: cover;
   /* warm brand fallback instead of stark black if a frame isn't decoded yet */
   background: linear-gradient(160deg, #2d170c, #130806);
+}
+
+.video-player button {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 250, 241, .42);
+  background: rgba(17, 8, 6, .5);
+  color: var(--paper);
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, color .2s ease, opacity .25s ease;
+}
+
+.video-player button:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.video-player svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* side arrows, vertically centred */
+.atelier-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.atelier-prev { left: 12px; }
+.atelier-next { right: 12px; }
+
+/* play/pause in the centre, only on hover */
+.atelier-pp {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video-player:hover .atelier-pp {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.atelier-pp svg { width: 26px; height: 26px; }
+.atelier-pp .ic-pause { fill: currentColor; stroke: none; }
+.atelier-pp .ic-play { fill: currentColor; stroke: none; }
+.atelier-pp .ic-play { display: none; }
+.atelier-pp.paused .ic-pause { display: none; }
+.atelier-pp.paused .ic-play { display: inline; }
+
+/* video number - top left */
+.atelier-count {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 11px;
+  background: rgba(10, 5, 3, .62);
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .gallery {
